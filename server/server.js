@@ -22,6 +22,15 @@ app.get('/', (req, res) => {
   res.send('Welcome! 🌞');
 });
 
+io.on('connection', (socket) => {
+  console.log('Someone has connected! 🤠');
+  setTimeout(() => {
+    // Sending to the client
+    // After the .emit('Name of the Message', 'Additional things we can send!', 3, 4, 'etc');
+    socket.emit('firstMessage', 'Welcome! 🌚');
+  }, 2000);
+});
+
 server.listen(port, () => {
   console.log(`App is listening on port ${port}! 😃`);
 });

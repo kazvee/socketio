@@ -1,4 +1,5 @@
 import './App.css';
+import { useEffect } from 'react';
 
 // Step 1 - Install client socket io
 
@@ -12,6 +13,8 @@ const ENDPOINT = 'http://localhost:9001/';
 const connection = socketToClient(ENDPOINT);
 
 function App() {
+  useEffect(() => {}, [connection])
+
   return (
     <div className="App">
       <h1>Hello World! 🌍</h1>
