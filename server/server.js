@@ -24,10 +24,10 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('Someone has connected! 🤠');
-  setTimeout(() => {
+  setInterval(() => {
     // Sending to the client
     // After the .emit('Name of the Message', 'Additional things we can send!', 3, 4, 'etc');
-    socket.emit('firstMessage', 'Welcome! 🌚');
+    socket.emit('firstMessage', 'Welcome! 🌚 ');
   }, 2000);
 });
 
