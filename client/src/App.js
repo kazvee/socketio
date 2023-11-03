@@ -30,6 +30,9 @@ function App() {
     connection.on('NEW_USER', (data) => {
       setUsers((prev) => [...prev, data]);
     });
+    connection.on('DISCONNECT', (data) => {
+      setUsers((prev) => prev.filter((name) => name !== data));
+    });
   }, [connection]);
 
   return (

@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
   res.send('Welcome! 🌞');
 });
 
-const users = [];
+let users = [];
 
 io.on('connection', (socket) => {
   const name = random();
@@ -36,9 +36,22 @@ io.on('connection', (socket) => {
   console.log('Someone has connected! 🤠');
   // Sending to the client
   // After the .emit('Name of the Message', 'Additional things we can send!', 3, 4, 'etc');
-  socket.emit('firstMessage', 'Welcome! 🌚 ');
+  socket.emit('firstMessage', 'Welcome! 🌚');
+
+  // Not recommended to do this because name is not 100% random, only the ID provided in socket will be 100% random:
+  socket.name = name;
+
+  socket.on('disconnect', () => {
+    console.log('User has left! 👋');
+    users = users.filter((name) => name !== socket.name);
+    socket.broadcast.emit('DISCONNECT', socket.name);
+  });
 });
 
 server.listen(port, () => {
   console.log(`App is listening on port ${port}! 😃`);
 });
+
+// Tips: When testing in 2 browser windows:
+// When window 2 is fine, and the window 1 has an issue, use broadcast.
+// When both windows have an issue, use emit.
