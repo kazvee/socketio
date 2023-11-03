@@ -14,22 +14,26 @@ const connection = socketToClient(ENDPOINT);
 
 function App() {
   const [message, setMessage] = useState([]);
+  const [users, setUsers] = useState([]);
   const [name, setName] = useState('');
+
+  console.log(users);
   useEffect(() => {
     connection.on('firstMessage', (data) => {
-      // console.log(data);
+      console.log(data);
       setMessage((prev) => [...prev, data]);
     });
     connection.on('name', (data) => {
+      setUsers((prev) => [...prev, data.users]);
       // console.log(data);
-      setName(data);
+      setName(data.name);
     });
   }, [connection]);
 
   return (
     <div className='App'>
-      <h1>Hello World! I'm {name}!🌍</h1>
-      {message}
+      <h1>Hello World! 🌍 I'm {name}! 🤠</h1>
+      {users}
     </div>
   );
 }
