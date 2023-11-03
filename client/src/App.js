@@ -14,16 +14,21 @@ const connection = socketToClient(ENDPOINT);
 
 function App() {
   const [message, setMessage] = useState([]);
+  const [name, setName] = useState('');
   useEffect(() => {
     connection.on('firstMessage', (data) => {
       // console.log(data);
       setMessage((prev) => [...prev, data]);
     });
+    connection.on('name', (data) => {
+      // console.log(data);
+      setName(data);
+    });
   }, [connection]);
 
   return (
     <div className='App'>
-      <h1>Hello World! 🌍</h1>
+      <h1>Hello World! I'm {name}!🌍</h1>
       {message}
     </div>
   );

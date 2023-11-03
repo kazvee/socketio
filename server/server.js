@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const app = express();
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
+const random = require('random-name');
 
 const port = 9001;
 
@@ -23,11 +24,14 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
+  // console.log(random());
+  const name = random();
+  socket.emit('name', name);
   console.log('Someone has connected! 🤠');
   // setInterval(() => {
-    // Sending to the client
-    // After the .emit('Name of the Message', 'Additional things we can send!', 3, 4, 'etc');
-    socket.emit('firstMessage', 'Welcome! 🌚 ');
+  // Sending to the client
+  // After the .emit('Name of the Message', 'Additional things we can send!', 3, 4, 'etc');
+  socket.emit('firstMessage', 'Welcome! 🌚 ');
   // }, 2000);
 });
 
