@@ -35,7 +35,11 @@ function App() {
   return (
     <div className='App'>
       <h1>Hello World! 🌍 I'm {name}! 🤠</h1>
-      {users}
+      <ul>
+        {users.map((user, key) => {
+          return <li key={key}>{user}</li>;
+        })}
+      </ul>
     </div>
   );
 }
