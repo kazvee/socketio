@@ -25,8 +25,10 @@ function App() {
     });
     connection.on('name', (data) => {
       setUsers((prev) => [...prev, data.users]);
-      // console.log(data);
       setName(data.name);
+    });
+    connection.on('NEW_USER', (data) => {
+      setUsers((prev) => [...prev, data]);
     });
   }, [connection]);
 

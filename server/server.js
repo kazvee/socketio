@@ -26,18 +26,17 @@ app.get('/', (req, res) => {
 const users = [];
 
 io.on('connection', (socket) => {
-  // console.log(random());
   const name = random();
   users.push(name);
   // socket.emit('users', users);
   // The above to send users to the frontend is fine and would be feasible, but we can send it all in one payload:
   socket.emit('name', { name, users });
+  // sending to all clients except sender
+  socket.broadcast.emit('NEW_USER', name);
   console.log('Someone has connected! 🤠');
-  // setInterval(() => {
   // Sending to the client
   // After the .emit('Name of the Message', 'Additional things we can send!', 3, 4, 'etc');
   socket.emit('firstMessage', 'Welcome! 🌚 ');
-  // }, 2000);
 });
 
 server.listen(port, () => {
